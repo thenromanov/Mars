@@ -175,5 +175,27 @@ def planeChoice(planetName):
            '''.format(planetName)
 
 
+@app.route('/results/<nickname>/<int:level>/<float:rating>')
+def results(nickname, level, rating):
+    return '''<!DOCTYPE html>
+              <html>
+                <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                    crossorigin="anonymous">
+                    <title>Результаты</title>
+                </head>
+                <body>
+                    <h1><b>Результаты отбора</b></h1>
+                    <h2>Претендента на участие в миссии {}:</h2>
+                    <h2 class="p-3 mb-2 bg-success text-white">Поздравляем! Ваш рейтинг после {} этапа отбора</h2>
+                    <h2 class="p-3 mb-2 bg-info text-white">составляет {}!</h2>
+                    <h2 class="p-3 mb-2 bg-warning text-dark">Желаем удачи!</h2>
+                </body>
+              </html>'''.format(nickname, level, rating)
+
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')

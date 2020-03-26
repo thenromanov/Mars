@@ -197,5 +197,41 @@ def results(nickname, level, rating):
               </html>'''.format(nickname, level, rating)
 
 
+@app.route('/load_photo', methods=['POST', 'GET'])
+def sample_file_upload():
+    if request.method == 'GET':
+        return '''<!DOCTYPE html>
+                  <html lang="en">
+                  <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+                    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+                    crossorigin="anonymous">
+                    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+                    <title>Отбор астронавтов</title>
+                  </head>
+                  <body>
+                    <h1>Загрузка фотографии</h1>
+                    <h2>для участия в миссии</h2>
+                    <form class="image_form" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="photo">Выберите файл</label>
+                            <input type="file" class="form-control-file" id="photo" name="file">
+                        </div>
+                        <div><img src="/static/img/im.png" width="200" height="200"></div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                  </body>
+                  </html>'''
+    elif request.method == 'POST':
+        f = request.files['file']
+        with open('static/img/im.png', 'wb') as file:
+            file.write(f.read())
+            file.close()
+        return 'Форма отправлена'
+
+
 if __name__ == '__main__':
+    file = open('static/img/im.png', 'w').close()
     app.run(port=8080, host='127.0.0.1')
